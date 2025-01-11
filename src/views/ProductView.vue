@@ -1,3 +1,3 @@
 <template>
-    <h1>Undersida</h1>
+    <h1>Produkter</h1>
 </template>
