@@ -10,7 +10,7 @@ export default {
 
             try {
                 //Skickar en GET-förfrågan för att logga in
-                const res = await fetch("http://localhost:5000/users/logout", {
+                const res = await fetch("https://projektfullstackramverk.onrender.com/users/logout", {
                     method: "GET",
                     credentials: "include"
                 })

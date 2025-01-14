@@ -34,7 +34,7 @@ router.beforeEach(async (to, from, next) => {
   if (to.meta.reqAuth) {
     try {
       //Kontrollera om användaren är autentiserad
-      const resp = await fetch("http://localhost:5000/products", {
+      const resp = await fetch("https://projektfullstackramverk.onrender.com/products", {
         credentials: "include"
       })
 

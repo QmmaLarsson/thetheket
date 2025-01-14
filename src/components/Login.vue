@@ -1,6 +1,5 @@
 <template>
     <form @submit.prevent="loginUser" class="border border-black w-full max-w-[800px]">
-        <p v-if="error" class="error">{{ error }}</p>
         <label for="username"><strong>Användarnamn:</strong></label>
         <br>
         <!-- Two-way binding mellan inputfältet och reaktiv data (username) -->
@@ -12,6 +11,7 @@
         <input v-model="password" type="password" id="password" name="password" required>
         <br><br>
         <button type="submit">Logga in</button>
+        <p v-if="error" class="error">{{ error }}</p>
     </form>
 </template>
 
@@ -30,7 +30,7 @@ export default {
         async loginUser() {
         //Kontrollera att användarnamn och lösenord inte är tomma
         if (!this.username.trim() || !this.password.trim()) {
-            this.error = "Användarnamn och lösenord får inte vara tomma";
+            this.error = "Användarnamn och lösenord måste fyllas i";
             return;
             }
 
@@ -41,7 +41,7 @@ export default {
 
             try {
                 //Skickar en POST-förfrågan för att logga in
-                const res = await fetch("http://localhost:5000/users/login", {
+                const res = await fetch("https://projektfullstackramverk.onrender.com/users/login", {
                     method: "POST",
                     credentials: "include",
                     body: JSON.stringify(user),

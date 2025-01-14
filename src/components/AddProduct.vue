@@ -49,6 +49,7 @@
                 class="bg-red-600 text-white font-bold py-2 px-4 m-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
             <input type="reset"
                 class="bg-red-600 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
+            <p v-if="error" class="error">{{ error }}</p>
         </form>
     </div>
 </template>
@@ -63,6 +64,7 @@ export default {
             productDescription: "",
             price: "",
             numberInStock: "",
+            error: null
         }
     },
     //Emits som skickar signaler till föräldern när en produkt har lagts till
@@ -70,22 +72,24 @@ export default {
     methods: {
         //Metod för att lägga till en ny produkt till webbtjänsten
         async addProduct() {
-            //Kontrollerar att namn, typ och beskrivning är korrekt ifyllt
-            if (this.productName.trim().length === 0) {
-                //Visar en alert om fältet inte är ifyllt korrekt
-                alert("Namn måste fyllas i!");
+            //Kontrollera om alla fält är ifyllda
+            if (!this.productName || !this.productType || !this.productDescription || !this.price || !this.numberInStock) {
+                this.error = "Alla fält måste fyllas i";
                 return;
             }
 
-            //Kontrollerar att pris är korrekt ifyllt
-            if (isNaN(this.price)) {
-                //Visar en alert om fältet inte är ifyllt korrekt
-                alert("Pris måste fyllas i och vara en siffra!");
+            //Kontrollera om pris och antal i lager är positiva siffror
+            if (isNaN(this.price) || this.price <= 0) {
+                this.error = "Pris måste vara ett positivt tal";
                 return;
             }
 
-            {
-                let productBody = {
+            if (isNaN(this.numberInStock) || this.numberInStock <= 0) {
+                this.error = "Antal i lager måste vara ett positivt tal";
+                return;
+            }
+
+            let productBody = {
                     productName: this.productName,
                     productType: this.productType,
                     productDescription: this.productDescription,
@@ -93,8 +97,9 @@ export default {
                     numberInStock: parseInt(this.numberInStock),
                 }
 
+            try {
                 //Skickar en POST-förfrågan för att lägga till en ny produkt
-                const resp = await fetch("http://localhost:5000/products", {
+                const resp = await fetch("https://projektfullstackramverk.onrender.com/products", {
                     method: "POST",
                     credentials: "include",
                     headers: {
@@ -114,6 +119,8 @@ export default {
                 this.numberInStock = "";
 
                 this.$emit("productAdded");
+            } catch (error) {
+                console.log(error); 
             }
         }
     }

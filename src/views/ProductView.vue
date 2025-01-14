@@ -26,7 +26,7 @@ export default {
         async fetchProducts() {
             try {
                 //Skickar en GET-förfrågan för att hämta produkter
-                const res = await fetch("http://localhost:5000/products", {
+                const res = await fetch("https://projektfullstackramverk.onrender.com/products", {
                     headers: {
                         "Accept": "application/json"
                     },
@@ -44,7 +44,7 @@ export default {
         //Tar bort en produkt utifrån ett angivet ID
         async deleteProduct(id) {
             //Skickar en DELETE-förfrågan för att ta bort en produkt
-            const resp = await fetch("http://localhost:5000/products/" + id, {
+            const resp = await fetch("https://projektfullstackramverk.onrender.com/products/" + id, {
                 method: "DELETE",
                 credentials: "include"
             });
