@@ -43,14 +43,27 @@ export default {
         },
         //Tar bort en produkt utifrån ett angivet ID
         async deleteProduct(id) {
-            //Skickar en DELETE-förfrågan för att ta bort en produkt
-            const resp = await fetch("https://projektfullstackramverk.onrender.com/products/" + id, {
-                method: "DELETE",
-                credentials: "include"
-            });
+            //Visa ruta för att bekräfta borttagning
+            const confirmed = window.confirm("Är du säker på att du vill ta bort produkten?");
 
-            //Hämta produkterna på nytt efter att en produkt har tagits bort
-            this.fetchProducts();
+            if(confirmed){
+                try {
+                    //Skickar en DELETE-förfrågan för att ta bort en produkt
+                    const resp = await fetch("https://projektfullstackramverk.onrender.com/products/" + id, {
+                    method: "DELETE",
+                    credentials: "include"
+                    });
+
+                    //Hämta produkterna på nytt efter att en produkt har tagits bort
+                    if(resp.ok) {
+                    this.fetchProducts();
+                    } else {
+                    console.error("Fel vid borttagning av produkt")
+                    }
+                } catch (error) {
+                    console.log(error)
+                }
+            }
         }
     },
     mounted() {
