@@ -28,8 +28,13 @@ export default {
     },
     methods: {
         async loginUser() {
-            //KONYTROLLERA så inte input är tomt
-            let user = {
+        //Kontrollera att användarnamn och lösenord inte är tomma
+        if (!this.username.trim() || !this.password.trim()) {
+            this.error = "Användarnamn och lösenord får inte vara tomma";
+            return;
+            }
+
+            let user = { 
                 username: this.username,
                 password: this.password
             }

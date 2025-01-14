@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import ProductView from '../views/ProductView.vue'
+import AddProduct from '../components/AddProduct.vue'
 import LoginView from '../views/LoginView.vue'
 
 const router = createRouter({
@@ -9,6 +10,13 @@ const router = createRouter({
       path: '/',
       name: 'product',
       component: ProductView,
+      //För att nå denna route behöver användaren vara autentiserad
+      meta: { reqAuth: true }
+    },
+    {
+      path: '/add-product',
+      name: 'add-product',
+      component: AddProduct,
       //För att nå denna route behöver användaren vara autentiserad
       meta: { reqAuth: true }
     },

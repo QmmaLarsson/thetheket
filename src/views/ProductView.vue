@@ -1,10 +1,12 @@
 <template>
     <h1>Tebutiken</h1>
-    <!-- Loopar igenom alla produkter och skriver ut dem en och en till Products-komponenten, varje produkt skickas som en prop till Movie-komponenten -->
-    <Products v-for="product in products" :product="product" :key="product._id" />
+    <!-- Loopar igenom alla produkter och skriver ut dem en och en till Products-komponenten, varje produkt skickas som en prop till Produkt-komponenten -->
+    <Products v-for="product in products" :product="product" :key="product._id"
+        @deleteProduct="deleteProduct(product._id)" />
 </template>
 
 <script>
+import AddProduct from '../components/AddProduct.vue';
 import Products from '../components/Products.vue';
 
 export default {
@@ -16,7 +18,8 @@ export default {
         }
     },
     components: {
-        Products
+        Products,
+        AddProduct
     },
     methods: {
         //Hämtar alla produkter från en extern webbtjänst
@@ -37,6 +40,17 @@ export default {
             } catch (error) {
                 console.log(error)
             }
+        },
+        //Tar bort en produkt utifrån ett angivet ID
+        async deleteProduct(id) {
+            //Skickar en DELETE-förfrågan för att ta bort en produkt
+            const resp = await fetch("http://localhost:5000/products/" + id, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            //Hämta produkterna på nytt efter att en produkt har tagits bort
+            this.fetchProducts();
         }
     },
     mounted() {

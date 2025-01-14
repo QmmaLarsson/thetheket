@@ -2,7 +2,7 @@
     <header>
         <nav>
             <RouterLink to="/">Produkter</RouterLink>
-            <RouterLink to="/login">Logga in</RouterLink>
+            <RouterLink to="/add-product">Lägg till ny produkt</RouterLink>
             <Logout />
         </nav>
     </header>
