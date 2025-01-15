@@ -1,8 +1,10 @@
 <template>
-  <main>
+    <div class="flex flex-col min-h-screen">
+  <main class="flex-grow">
     <RouterView />
   </main>
   <Footer />
+</div>
 </template>
 
 <script setup>

@@ -1,13 +1,13 @@
 <template>
       <Header />
-    <h1>Tebutiken</h1>
-    <div>
-        <label for="productType">
+    <h1 class="text-5xl text-center text-green-800 my-4">Produkter</h1>
+    <div class="my-4 text-center">
+        <label for="productType" class="mr-2">
                     Typ:
                 </label>
                 <!-- Two-way binding mellan selectfältet och reaktiv data (teaType) -->
                 <select v-model="teaType" @change="filterProducts" id="productType" name="productType"
-                    class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                class="w-[250px] p-2 border border-gray-300 rounded-md focus:ring-2 focus:outline-none focus:ring-green-800">
                     <option value="Alla">Alla</option>
                     <option value="Svart te">Svart te</option>
                     <option value="Rött te">Rött te</option>
@@ -15,9 +15,11 @@
                     <option value="Vitt te">Vitt te</option>
                 </select>
     </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     <!-- Loopar igenom alla produkter och skriver ut dem en och en till Products-komponenten, varje produkt skickas som en prop till Produkt-komponenten -->
     <Products v-for="product in filteredProducts" :product="product" :key="product._id"
         @deleteProduct="deleteProduct(product._id)" />
+    </div>
 </template>
 
 <script>

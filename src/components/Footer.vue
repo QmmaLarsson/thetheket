@@ -1,6 +1,6 @@
 <template>
-    <footer class="bg-red-600 text-center p-4">
-        <p class="text-white">&copy; Emma Larsson 2025</p>
+    <footer class="bg-white border-t border-gray-800 text-center py-4">
+        <p>&copy; Emma Larsson 2025</p>
     </footer>
 </template>
 

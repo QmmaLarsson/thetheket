@@ -1,46 +1,45 @@
 <template>
-    <div class="px-4">
-        <table class="min-w-full border border-red-600 mb-8">
-            <thead class="bg-red-600 text-white">
+    <div class="bg-white p-4 rounded-lg shadow-lg m-6">
+        <table class="min-w-full min-h-full table-auto">
+            <thead class="bg-green-800 text-white">
                 <tr>
                     <!-- Använder props för att ta emot produktens namn -->
-                    <th colspan="2">{{ product.productName }}</th>
+                    <th colspan="2" class="p-3">{{ product.productName }}</th>
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b border-red-600">
-                    <td class="px-4 py-2"><strong>Typ</strong></td>
+                <tr class="border-b">
+                    <td class="px-4 py-2 font-semibold w-1/2"><strong>Typ</strong></td>
                     <!-- Använder props för att ta emot typ -->
                     <td class="px-4 py-2">{{ product.productType }}</td>
                 </tr>
-                <tr class="border-b border-red-600">
-                    <td class="px-4 py-2"><strong>Beskrivning</strong></td>
+                <tr class="border-b">
+                    <td class="px-4 py-2 font-semibold w-1/2"><strong>Beskrivning</strong></td>
                     <!-- Använder props för att ta emot beskrivning -->
                     <td class="px-4 py-2">{{ product.productDescription }}</td>
                 </tr>
-                <tr class="border-b border-red-600">
-                    <td class="px-4 py-2"><strong>Pris</strong></td>
+                <tr class="border-b">
+                    <td class="px-4 py-2 font-semibold w-1/2"><strong>Pris</strong></td>
                     <!-- Använder props för att ta emot pris -->
-                    <td class="px-4 py-2">{{ product.price }}</td>
+                    <td class="px-4 py-2">{{ product.price }}:-</td>
                 </tr>
 
-                <tr class="border-b border-red-600">
-
-                    <td class="px-4 py-2"><strong>Antal i lager</strong></td>
-                     <td>
+                <tr>
+                    <td class="px-4 py-2 font-semibold w-1/2"><strong>Antal i lager</strong></td>
+                     <td class="px-4 py-2 flex items-center space-x-2">
                         <!-- När "-" klickas, anropas metoden decreaseStock -->
-                        <button @click="decreaseStock">-</button>
+                        <button @click="decreaseStock" class="bg-green-800 text-white py-1 px-3 rounded hover:bg-gray-400">-</button>
                         <!-- Använder props för att ta emot lagersaldo -->
                         <span>{{ product.numberInStock }}</span>
                         <!-- När "+" klickas, anropas metoden increaseStock -->
-                        <button @click="increaseStock">+</button></td>
+                        <button @click="increaseStock" class="bg-green-800 text-white py-1 px-3 rounded hover:bg-gray-400">+</button></td>
                 </tr>
                 <!-- Innehållet uppdateras om message finns -->
-                <p v-if="message" class="text-green-600 font-bold mt-4">{{ message }}</p>
-                <tr>
+                <p v-if="message" class="text-green-800 font-bold px-3 mt-4">{{ message }}</p>
+                <tr class="border-t">
                     <!-- Skickar produktens id till föräldern vid klick på "Ta bort" -->
-                    <td><button @click="$emit('deleteProduct', product._id)"
-                            class="bg-red-600 text-white font-bold py-2 px-4 m-2 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">Ta
+                    <td colspan="2" class="text-center"><button @click="$emit('deleteProduct', product._id)"
+                            class="bg-red-600 text-white font-bold py-2 px-4 mt-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">Ta
                             bort</button></td>
                 </tr>
             </tbody>

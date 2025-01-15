@@ -1,0 +1,14 @@
+html {
+    /*62,5% av 16px ger textstorlek 10px*/
+    font-size: 62.5%;
+}
+
+body {
+    /*Textstorlek 16px som standard*/
+    font-size: 1.6rem;
+    line-height: 1.5;
+    max-width: 1600px;
+    font-family: 'Pacifico', 'Courier New', Courier, sans-serif;
+    background-color: #D1D5DB;
+    color: #2D3748;
+}

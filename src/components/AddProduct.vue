@@ -1,20 +1,20 @@
 <template>
     <div class="flex justify-center mb-8">
-        <form @submit.prevent="addProduct()" class="border border-red-600 m-4 w-full max-w-[800px]">
+        <form @submit.prevent="addProduct()" class="border border-green-800 m-4 w-full max-w-[800px] bg-white rounded-lg shadow-lg">
             <p class="p-4">
-                <label for="productName">
+                <label for="productName" class="font-semibold">
                     Namn:
                 </label>
                 <input v-model="productName" id="productName" type="text" name="productName"
-                    class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
             </p>
             <p class="p-4">
-                <label for="productType">
+                <label for="productType" class="font-semibold">
                     Typ:
                 </label>
                 <!-- Two-way binding mellan selectfältet och reaktiv data (productType) -->
                 <select v-model="productType" id="productType" name="productType"
-                    class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
                     <option value="Svart te">Svart te</option>
                     <option value="Rött te">Rött te</option>
                     <option value="Grönt te">Grönt te</option>
@@ -22,35 +22,37 @@
                 </select>
             </p>
             <p class="p-4">
-                <label for="productDescription">
+                <label for="productDescription" class="font-semibold">
                     Beskrivning:
                 </label>
                 <!-- Two-way binding mellan inputfältet och reaktiv data (description) -->
                 <input v-model="productDescription" id="productDescription" type="text" name="productDescription"
-                    class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
             </p>
             <p class="p-4">
-                <label for="price">
+                <label for="price" class="font-semibold">
                     Pris:
                 </label>
                 <!-- Two-way binding mellan inputfältet och reaktiv data (pris) -->
                 <input v-model="price" id="price" type="text" name="price"
-                    class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
             </p>
             <p class="p-4">
-                <label for="numberInStock">
+                <label for="numberInStock" class="font-semibold">
                     Antal i lager:
                 </label>
                 <!-- Two-way binding mellan inputfältet och reaktiv data (pris) -->
                 <input v-model="numberInStock" id="numberInStock" type="text" name="numberInStock"
-                    class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
             </p>
-            <input type="submit" value="Lägg till ny produkt"
-                class="bg-red-600 text-white font-bold py-2 px-4 m-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
-            <input type="reset"
-                class="bg-red-600 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
+            <div class="p-4 flex gap-4">
+                <input type="submit" value="Lägg till ny produkt"
+                class="bg-green-800 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
+                <input type="reset"
+                class="bg-green-800 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
+            </div>
              <!-- Innehållet uppdateras om error finns -->
-            <p v-if="error" class="error">{{ error }}</p>
+            <p v-if="error" class="error text-red-600 font-bold text-center m-4">{{ error }}</p>
         </form>
     </div>
 </template>
@@ -109,8 +111,6 @@ export default {
                     },
                     body: JSON.stringify(productBody),
                 });
-
-                const data = await resp.json();
 
                 //Rensar dataobjekten efter att produkten lagts till
                 this.productName = "";

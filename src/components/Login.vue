@@ -1,19 +1,27 @@
 <template>
-    <form @submit.prevent="loginUser" class="border border-black w-full max-w-[800px]">
-        <label for="username"><strong>Användarnamn:</strong></label>
+   <div class="flex justify-center mb-8">
+    <form @submit.prevent="loginUser" class="border border-green-800 m-4 w-full max-w-[800px] bg-white rounded-lg shadow-lg">
+        <p class="p-4">
+        <label for="username" class="font-semibold"><strong>Användarnamn:</strong></label>
         <br>
         <!-- Two-way binding mellan inputfältet och reaktiv data (username) -->
-        <input v-model="username" type="text" id="username" name="username">
-        <br><br>
-        <label for="password"><strong>Lösenord:</strong></label>
+        <input v-model="username" type="text" id="username" name="username" class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
+        </p>
+        <br>
+        <p class="p-4">
+        <label for="password" class="font-semibold"><strong>Lösenord:</strong></label>
         <br>
         <!-- Two-way binding mellan inputfältet och reaktiv data (password) -->
-        <input v-model="password" type="password" id="password" name="password" required>
-        <br><br>
-        <button type="submit">Logga in</button>
+        <input v-model="password" type="password" id="password" name="password" class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
+        </p>
+        <br>
+        <div class="p-4">
+        <button type="submit" class="bg-green-800 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">Logga in</button>
+        </div>
          <!-- Innehållet uppdateras om error finns -->
-        <p v-if="error" class="error">{{ error }}</p>
+        <p v-if="error" class="error text-red-600 font-bold text-center m-4">{{ error }}</p>
     </form>
+  </div>
 </template>
 
 <script>
