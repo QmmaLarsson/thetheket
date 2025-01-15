@@ -49,6 +49,7 @@
                 class="bg-red-600 text-white font-bold py-2 px-4 m-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
             <input type="reset"
                 class="bg-red-600 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
+             <!-- Innehållet uppdateras om error finns -->
             <p v-if="error" class="error">{{ error }}</p>
         </form>
     </div>

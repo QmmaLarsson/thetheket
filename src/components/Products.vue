@@ -35,6 +35,8 @@
                         <!-- När "+" klickas, anropas metoden increaseStock -->
                         <button @click="increaseStock">+</button></td>
                 </tr>
+                <!-- Innehållet uppdateras om message finns -->
+                <p v-if="message" class="text-green-600 font-bold mt-4">{{ message }}</p>
                 <tr>
                     <!-- Skickar produktens id till föräldern vid klick på "Ta bort" -->
                     <td><button @click="$emit('deleteProduct', product._id)"
@@ -50,6 +52,12 @@
 export default {
     props: {
         product: Object
+    },
+    data() {
+        return {
+            //Reaktivt meddelande som visas när produktens lagersaldo uppdateras
+            message: ''
+        };
     },
     methods: {
         //Uppdaterar en produkts lagersaldo
@@ -71,6 +79,14 @@ export default {
                     if(!resp.ok) {
                         throw new Error("Produkten kunde inte uppdateras")
                     }
+
+                    //Uppdatera meddelandet när lagersaldot är uppdaterat
+                    this.message = 'Produktens lagersaldo har uppdaterats!';
+
+                    //Återställ meddelandet efter tre sekunder
+                    setTimeout(() => {
+                        this.message = '';
+                    }, 3000);
 
             } catch (error) {
                 console.error("Fel vid uppdatering av produkt:", error)

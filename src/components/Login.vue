@@ -11,6 +11,7 @@
         <input v-model="password" type="password" id="password" name="password" required>
         <br><br>
         <button type="submit">Logga in</button>
+         <!-- Innehållet uppdateras om error finns -->
         <p v-if="error" class="error">{{ error }}</p>
     </form>
 </template>
