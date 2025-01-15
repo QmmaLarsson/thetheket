@@ -12,7 +12,7 @@
                 <label for="productType">
                     Typ:
                 </label>
-                <!-- Two-way binding mellan inputfältet och reaktiv data (productType) -->
+                <!-- Two-way binding mellan selectfältet och reaktiv data (productType) -->
                 <select v-model="productType" id="productType" name="productType"
                     class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
                     <option value="Svart te">Svart te</option>
@@ -120,7 +120,7 @@ export default {
 
                 this.$emit("productAdded");
             } catch (error) {
-                console.log(error); 
+                console.error("Fel när ny produkt skulle läggas till:", error); 
             }
         }
     }

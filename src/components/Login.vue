@@ -59,7 +59,7 @@ export default {
                     this.error = "Fel användaruppgifter"
                 }
             } catch (error) {
-                console.log(error)
+                console.error("Fel vid inloggning:", error)
             }
         }
     }

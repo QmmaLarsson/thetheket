@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ProductView from '../views/ProductView.vue'
 import AddProduct from '../components/AddProduct.vue'
 import LoginView from '../views/LoginView.vue'
+import AddProductView from '@/views/AddProductView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,7 +17,7 @@ const router = createRouter({
     {
       path: '/add-product',
       name: 'add-product',
-      component: AddProduct,
+      component: AddProductView,
       //För att nå denna route behöver användaren vara autentiserad
       meta: { reqAuth: true }
     },
@@ -45,8 +46,8 @@ router.beforeEach(async (to, from, next) => {
         //Om användaren inte är autentiserad skickas användren till login-sidan
         next("/login")
       }
-    } catch {
-      console.log(error);
+    } catch (error) {
+      console.error("Fel vid inloggning:", error);
       next("/login")
     }
   } else {

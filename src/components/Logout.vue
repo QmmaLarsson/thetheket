@@ -20,7 +20,7 @@ export default {
                     this.$router.push("/login");
                 }
             } catch (error) {
-                console.log(error)
+                console.error("Fel vid utloggning:", error)
             }
         }
     }

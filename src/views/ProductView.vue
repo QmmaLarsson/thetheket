@@ -1,25 +1,44 @@
 <template>
+      <Header />
     <h1>Tebutiken</h1>
+    <div>
+        <label for="productType">
+                    Typ:
+                </label>
+                <!-- Two-way binding mellan selectfältet och reaktiv data (teaType) -->
+                <select v-model="teaType" @change="filterProducts" id="productType" name="productType"
+                    class="w-full p-2 border bg-red-100 border-red-600 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600">
+                    <option value="Alla">Alla</option>
+                    <option value="Svart te">Svart te</option>
+                    <option value="Rött te">Rött te</option>
+                    <option value="Grönt te">Grönt te</option>
+                    <option value="Vitt te">Vitt te</option>
+                </select>
+    </div>
     <!-- Loopar igenom alla produkter och skriver ut dem en och en till Products-komponenten, varje produkt skickas som en prop till Produkt-komponenten -->
-    <Products v-for="product in products" :product="product" :key="product._id"
+    <Products v-for="product in filteredProducts" :product="product" :key="product._id"
         @deleteProduct="deleteProduct(product._id)" />
 </template>
 
 <script>
 import AddProduct from '../components/AddProduct.vue';
 import Products from '../components/Products.vue';
+import Header from '../components/Header.vue';
 
 export default {
     //Skapa dataobjekt
     data() {
         return {
             //Array som lagrar alla produkter som hämtas
-            products: []
+            products: [],
+            filteredProducts: [],
+            teaType: "Alla"
         }
     },
     components: {
         Products,
-        AddProduct
+        AddProduct,
+        Header
     },
     methods: {
         //Hämtar alla produkter från en extern webbtjänst
@@ -32,13 +51,24 @@ export default {
                     },
                     credentials: "include"
                 })
+
                 const data = await res.json()
+
                 if (res.ok) {
                     //Fyll products-arrayen med hämtad data
                     this.products = data;
+                    this.filteredProducts = data;
                 }
+
             } catch (error) {
-                console.log(error)
+                console.error("Fel vid hämtning av produkter:", error)
+            }
+        },
+        filterProducts() {
+            if(this.teaType === "Alla") {
+                this.filteredProducts = this.products;
+            } else {
+                this.filteredProducts = this.products.filter((product) => product.productType === this.teaType);
             }
         },
         //Tar bort en produkt utifrån ett angivet ID
@@ -57,11 +87,9 @@ export default {
                     //Hämta produkterna på nytt efter att en produkt har tagits bort
                     if(resp.ok) {
                     this.fetchProducts();
-                    } else {
-                    console.error("Fel vid borttagning av produkt")
                     }
                 } catch (error) {
-                    console.log(error)
+                    console.error("Fel vid bortttagning av produkt:", error)
                 }
             }
         }
