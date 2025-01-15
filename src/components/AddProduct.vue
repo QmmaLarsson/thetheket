@@ -1,12 +1,12 @@
 <template>
     <div class="flex justify-center mb-8">
-        <form @submit.prevent="addProduct()" class="border border-green-800 m-4 w-full max-w-[800px] bg-white rounded-lg shadow-lg">
+        <form @submit.prevent="addProduct()" class="m-4 p-4 w-full max-w-[600px] bg-white rounded-lg shadow-lg">
             <p class="p-4">
                 <label for="productName" class="font-semibold">
                     Namn:
                 </label>
                 <input v-model="productName" id="productName" type="text" name="productName"
-                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
+                class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
             </p>
             <p class="p-4">
                 <label for="productType" class="font-semibold">
@@ -14,7 +14,7 @@
                 </label>
                 <!-- Two-way binding mellan selectfältet och reaktiv data (productType) -->
                 <select v-model="productType" id="productType" name="productType"
-                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
+                class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
                     <option value="Svart te">Svart te</option>
                     <option value="Rött te">Rött te</option>
                     <option value="Grönt te">Grönt te</option>
@@ -27,7 +27,7 @@
                 </label>
                 <!-- Two-way binding mellan inputfältet och reaktiv data (description) -->
                 <input v-model="productDescription" id="productDescription" type="text" name="productDescription"
-                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
+                class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
             </p>
             <p class="p-4">
                 <label for="price" class="font-semibold">
@@ -35,7 +35,7 @@
                 </label>
                 <!-- Two-way binding mellan inputfältet och reaktiv data (pris) -->
                 <input v-model="price" id="price" type="text" name="price"
-                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
+                class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
             </p>
             <p class="p-4">
                 <label for="numberInStock" class="font-semibold">
@@ -43,7 +43,7 @@
                 </label>
                 <!-- Two-way binding mellan inputfältet och reaktiv data (pris) -->
                 <input v-model="numberInStock" id="numberInStock" type="text" name="numberInStock"
-                class="w-full p-2 border border-green-800 bg-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-green-600">
+                class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
             </p>
             <div class="p-4 flex gap-4">
                 <input type="submit" value="Lägg till ny produkt"
