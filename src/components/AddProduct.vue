@@ -76,19 +76,19 @@ export default {
         //Metod för att lägga till en ny produkt till webbtjänsten
         async addProduct() {
             //Kontrollera om alla fält är ifyllda
-            if (!this.productName || !this.productType || !this.productDescription || !this.price || !this.numberInStock) {
+            if (!this.productName.trim() || !this.productType.trim() || !this.productDescription.trim() || !this.price.trim() || !this.numberInStock.trim()) {
                 this.error = "Alla fält måste fyllas i";
                 return;
             }
 
             //Kontrollera om pris och antal i lager är positiva siffror
             if (isNaN(this.price) || this.price <= 0) {
-                this.error = "Pris måste vara ett positivt tal";
+                this.error = "Pris måste vara större än noll";
                 return;
             }
 
-            if (isNaN(this.numberInStock) || this.numberInStock <= 0) {
-                this.error = "Antal i lager måste vara ett positivt tal";
+            if (isNaN(this.numberInStock) || this.numberInStock < 0) {
+                this.error = "Antal i lager måste vara större än eller lika med noll";
                 return;
             }
 
