@@ -32,5 +32,5 @@ Komponenten använder även emits för att kommunicera med sin föräldrakompone
 För att installera och börja använda projektet, följ nedanstående steg:
 * Klona projektet från Github. För att göra detta, nagivera till den mapp där du vill spara projektet, skriv in "git clone" följt av Github-repots URL.
 * Installera beroenden. För att göra detta använd kommandot "npm install".
-* Kör projektet. För att göra detta använd kommandot "npm run start".
+* Kör projektet. För att göra detta använd kommandot "npm run dev".
 * Kommandot för att bygga projektet är "npm run build".
