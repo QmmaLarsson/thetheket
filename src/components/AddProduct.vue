@@ -46,7 +46,7 @@
                 class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
             </p>
             <div class="p-4 flex gap-4">
-                <input type="submit" value="Lägg till ny produkt"
+                <input type="submit" value="Lägg till"
                 class="bg-green-800 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
                 <input type="reset"
                 class="bg-green-800 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">
