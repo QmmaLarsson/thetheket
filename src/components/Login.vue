@@ -7,14 +7,12 @@
         <!-- Two-way binding mellan inputfältet och reaktiv data (username) -->
         <input v-model="username" type="text" id="username" name="username" class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
         </p>
-        <br>
         <p class="p-4">
         <label for="password" class="font-semibold"><strong>Lösenord:</strong></label>
         <br>
         <!-- Two-way binding mellan inputfältet och reaktiv data (password) -->
         <input v-model="password" type="password" id="password" name="password" class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
         </p>
-        <br>
         <div class="p-4">
         <button type="submit" class="bg-green-800 text-white font-bold py-2 px-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">Logga in</button>
         </div>
