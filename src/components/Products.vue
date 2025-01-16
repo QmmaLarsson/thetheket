@@ -26,16 +26,20 @@
 
                 <tr>
                     <td class="px-4 py-2 font-semibold w-1/2"><strong>Antal i lager</strong></td>
-                     <td class="px-4 py-2 flex items-center space-x-2">
+                     <td class="px-4 py-2 flex items-center">
                         <!-- När "-" klickas, anropas metoden decreaseStock -->
-                        <button @click="decreaseStock" class="bg-green-800 text-white py-1 px-3 rounded hover:bg-gray-400">-</button>
+                        <button @click="decreaseStock" class="bg-green-800 text-white py-1 px-3 h-[30px] rounded-l hover:bg-gray-400">-</button>
                         <!-- Använder props för att ta emot lagersaldo -->
-                        <span>{{ product.numberInStock }}</span>
+                        <input type="text" v-model.number="product.numberInStock" @change="updateStock" class="w-[40px] h-[30px] text-center border-t border-b border-l-0 border-r-0 border-gray-400">
                         <!-- När "+" klickas, anropas metoden increaseStock -->
-                        <button @click="increaseStock" class="bg-green-800 text-white py-1 px-3 rounded hover:bg-gray-400">+</button></td>
+                        <button @click="increaseStock" class="bg-green-800 text-white py-1 px-3 h-[30px] rounded-r hover:bg-gray-400">+</button></td>
                 </tr>
                 <!-- Innehållet uppdateras om message finns -->
-                <p v-if="message" class="text-green-800 font-bold px-3 mt-4">{{ message }}</p>
+                <tr v-if="message">
+                    <td colspan="2" class="px-4 text-green-800 font-bold py-2">
+                        {{ message }}
+                    </td>
+                </tr>
                 <tr class="border-t">
                     <!-- Skickar produktens id till föräldern vid klick på "Ta bort" -->
                     <td colspan="2" class="text-center"><button @click="$emit('deleteProduct', product._id)"
