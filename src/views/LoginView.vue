@@ -1,6 +1,5 @@
 <template>
     <Header2 />
-    <h1 class="text-5xl text-center text-green-800 my-4">Logga in</h1>
     <Login />
 </template>
 
