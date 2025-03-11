@@ -3,36 +3,76 @@
         <table class="min-w-full min-h-full table-auto">
             <thead class="bg-green-800 text-white">
                 <tr>
-                    <!-- Använder props för att ta emot produktens namn -->
-                    <th colspan="2" class="p-3">{{ product.productName }}</th>
+                    <th colspan="2" class="p-3">
+                        <!-- Använder props för att ta emot produktens namn -->
+                        <template v-if="!editing">
+                            {{ product.productName }}
+                        </template>
+                        <!-- När redigeringsläge är aktivt visas ett inputfält för namn -->
+                        <template v-else>
+                            <input type="text" v-model="product.productName" class="w-full p-2 bg-green-800 text-center border-2 border-white rounded-md focus:outline-none focus:ring-2 focus:ring-white">
+                        </template>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="border-b">
                     <td class="px-4 py-2 font-semibold w-1/2"><strong>Typ</strong></td>
-                    <!-- Använder props för att ta emot typ -->
-                    <td class="px-4 py-2">{{ product.productType }}</td>
+                    <td class="px-4 py-2">
+                        <!-- Använder props för att ta emot typ -->
+                        <template v-if="!editing">
+                            {{ product.productType }}
+                        </template>
+                        <template v-else>
+                            <!-- När redigeringsläge är aktivt visas ett selectfält för typ -->
+                            <select v-model="product.productType" class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
+                                <option value="Svart te">Svart te</option>
+                                <option value="Rött te">Rött te</option>
+                                <option value="Grönt te">Grönt te</option>
+                                <option value="Vitt te">Vitt te</option>
+                            </select>
+                        </template>
+                    </td>
                 </tr>
                 <tr class="border-b">
                     <td class="px-4 py-2 font-semibold w-1/2"><strong>Beskrivning</strong></td>
-                    <!-- Använder props för att ta emot beskrivning -->
-                    <td class="px-4 py-2">{{ product.productDescription }}</td>
+                    <td class="px-4 py-2">
+                        <!-- Använder props för att ta emot beskrivning -->
+                        <template v-if="!editing">
+                            {{ product.productDescription }}
+                        </template>
+                        <!-- När redigeringsläge är aktivt visas en textarea för beskrivning -->
+                        <template v-else>
+                            <textarea type="text" v-model="product.productDescription" class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800"></textarea>
+                        </template>
+                    </td>
                 </tr>
                 <tr class="border-b">
                     <td class="px-4 py-2 font-semibold w-1/2"><strong>Pris</strong></td>
-                    <!-- Använder props för att ta emot pris -->
-                    <td class="px-4 py-2">{{ product.price }}:-</td>
+                    <td class="px-4 py-2">
+                        <!-- Använder props för att ta emot pris -->
+                        <template v-if="!editing">
+                            {{ product.price }}:-
+                        </template>
+                        <!-- När redigeringsläge är aktivt visas ett inputfält för pris -->
+                        <template v-else>
+                            <input type="number" v-model="product.price" class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
+                        </template>
+                    </td>
                 </tr>
 
                 <tr>
                     <td class="px-4 py-2 font-semibold w-1/2"><strong>Antal i lager</strong></td>
-                     <td class="px-4 py-2 flex items-center">
-                        <!-- När "-" klickas, anropas metoden decreaseStock -->
-                        <button @click="decreaseStock" class="bg-green-800 text-white py-1 px-3 h-[30px] rounded-l hover:bg-gray-400">-</button>
-                        <!-- Använder props för att ta emot lagersaldo -->
-                        <input type="text" v-model.number="product.numberInStock" @change="updateStock" class="w-[40px] h-[30px] text-center border-t border-b border-l-0 border-r-0 border-gray-400">
-                        <!-- När "+" klickas, anropas metoden increaseStock -->
-                        <button @click="increaseStock" class="bg-green-800 text-white py-1 px-3 h-[30px] rounded-r hover:bg-gray-400">+</button></td>
+                     <td class="px-4 py-2">
+                        <!-- Använder props för att ta emot antal varor i lager -->
+                        <template v-if="!editing">
+                            {{ product.numberInStock }}
+                        </template>
+                        <!-- När redigeringsläge är aktivt visas ett inputfält för antal -->
+                        <template v-else>
+                            <input type="number" v-model.number="product.numberInStock" class="w-full p-2 border-2 border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-green-800">
+                        </template>
+                     </td>
                 </tr>
                 <!-- Innehållet uppdateras om message finns -->
                 <tr v-if="message">
@@ -44,7 +84,18 @@
                     <!-- Skickar produktens id till föräldern vid klick på "Ta bort" -->
                     <td colspan="2" class="text-center"><button @click="$emit('deleteProduct', product._id)"
                             class="bg-red-600 text-white font-bold py-2 px-4 mt-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105">Ta
-                            bort</button></td>
+                            bort</button>
+                        
+                    <!-- Redigera-knapp -->
+                    <button v-if="!editing" @click="toggleEdit" 
+                            class="bg-green-800 text-white font-bold py-2 px-4 mt-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105 ml-4">
+                            Redigera</button>
+
+                    <!-- Spara-knapp som syns när redigeringsläge är aktivt -->
+                    <button v-if="editing" @click="saveChanges"
+                    class="bg-green-800 text-white font-bold py-2 px-4 mt-4 rounded min-w-[110px] transition-all duration-300 ease-in-out hover:scale-105 ml-4">
+                    Spara</button>
+                </td>
                 </tr>
             </tbody>
         </table>
@@ -59,54 +110,51 @@ export default {
     data() {
         return {
             //Reaktivt meddelande som visas när produktens lagersaldo uppdateras
-            message: ''
+            message: '',
+            //Kontrollerar om redigeringsläget är aktivt
+            editing: false
         };
     },
     methods: {
-        //Uppdaterar en produkts lagersaldo
-        async updateStock() {
+        //Ändra redigeringsläge
+        toggleEdit() {
+            this.editing = !this.editing;
+        },
+        //Spara ändringar
+        async saveChanges() {
             try {
-                //Skickar en PUT-förfrågan för att uppdatera en produkt med angivet ID
-                const resp = await fetch("https://projektfullstackramverk.onrender.com/products/" + this.product._id,
-                    {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        credentials: "include",
-                        body: JSON.stringify({
-                            numberInStock: this.product.numberInStock,
-                        }),
-                    });
+                const resp = await fetch("https://projektfullstackramverk.onrender.com/products/" + this.product._id, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({
+                        productName: this.product.productName,
+                        productType: this.product.productType,
+                        productDescription: this.product.productDescription,
+                        price: this.product.price,
+                        numberInStock: this.product.numberInStock,
+                    }),
+                });
 
-                    if(!resp.ok) {
-                        throw new Error("Produkten kunde inte uppdateras")
-                    }
+                if (!resp.ok) {
+                    throw new Error("Ändringarna kunde inte sparas");
+                }
 
-                    //Uppdatera meddelandet när lagersaldot är uppdaterat
-                    this.message = 'Produktens lagersaldo har uppdaterats!';
+                //Stänger redigeringsläge efter klick på "Spara"
+                this.message = 'Ändringarna har sparats!';
+                this.toggleEdit();
 
-                    //Återställ meddelandet efter tre sekunder
-                    setTimeout(() => {
-                        this.message = '';
-                    }, 3000);
+                //Återställ meddelandet efter tre sekunder
+                setTimeout(() => {
+                    this.message = '';
+                }, 3000);
 
             } catch (error) {
-                console.error("Fel vid uppdatering av produkt:", error)
-            }
-        },
-        //Ökar antalet varor med ett för varje klick
-        increaseStock() {
-            this.product.numberInStock++;
-            this.updateStock();
-        },
-        //Minskar antalet varor med ett för varje klick
-        decreaseStock() {
-            if(this.product.numberInStock > 0) {
-                this.product.numberInStock--;
-                this.updateStock();
+                console.error("Fel vid sparande av ändringar:", error);
             }
         }
     }
-}
+    }
 </script>
