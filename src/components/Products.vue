@@ -74,6 +74,12 @@
                         </template>
                      </td>
                 </tr>
+                <!-- Innehållet uppdateras om error finns -->
+                <tr v-if="error">
+                    <td colspan="2" class="px-4 text-red-600 font-bold py-2">
+                        {{ error }}
+                    </td>
+                </tr>
                 <!-- Innehållet uppdateras om message finns -->
                 <tr v-if="message">
                     <td colspan="2" class="px-4 text-green-800 font-bold py-2">
@@ -112,16 +118,35 @@ export default {
             //Reaktivt meddelande som visas när produktens lagersaldo uppdateras
             message: '',
             //Kontrollerar om redigeringsläget är aktivt
-            editing: false
+            editing: false,
+            error: null
         };
     },
     methods: {
         //Ändra redigeringsläge
         toggleEdit() {
             this.editing = !this.editing;
+            this.error = null;
         },
         //Spara ändringar
         async saveChanges() {
+                //Kontrollera om några fält är tomma
+                if (!this.product.productName.trim() || !this.product.productType.trim() || !this.product.productDescription.trim()) {
+                this.error = "Alla fält måste fyllas i";
+                return;
+            }
+
+                //Kontrollera om pris och antal i lager är positiva siffror
+                if (isNaN(this.product.price) || this.product.price <= 0) {
+                this.error = "Pris måste vara större än noll";
+                return;
+            }
+
+                if (isNaN(this.product.numberInStock) || this.product.numberInStock < 0 || this.product.numberInStock === "") {
+                this.error = "Antal i lager måste vara större än eller lika med noll";
+                return;
+            }
+
             try {
                 const resp = await fetch("https://projektfullstackramverk.onrender.com/products/" + this.product._id, {
                     method: "PUT",
